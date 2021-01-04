@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private final LinkedList<FoodItem> mFoodList = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private FoodListAdapter mAdapter;
+    public static final int FoodItem_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +99,37 @@ public class MainActivity extends AppCompatActivity {
 
     public void createFood(View view) {
         Intent intent = new Intent(this, CreateActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent, FoodItem_REQUEST);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Test for the right intent reply.
+        if(requestCode == FoodItem_REQUEST) {
+            // Test to make sure the intent reply result was good.
+            if (resultCode == RESULT_OK) {
+                String name = data.getStringExtra(CreateActivity.EXTRA_NAME);
+                String temp = data.getStringExtra(CreateActivity.EXTRA_COUNT);
+                int count = 1;
+                if(!"".equals(temp)) {
+                    count = Integer.parseInt(temp);
+                }
+                String comment = data.getStringExtra(CreateActivity.EXTRA_COMMENT);
+
+                FoodItem newItem = new FoodItem(name, count, comment);
+
+                mFoodList.addFirst(newItem);
+                mAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    /*
     public void editFood(View view) {
         Log.e(LOG_TAG, "editFood");
     }
+
+     */
 }
