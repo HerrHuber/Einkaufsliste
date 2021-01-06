@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_NAME = "com.example.eikaufsliste.extra.NAME";
     public static final String EXTRA_COUNT = "com.example.eikaufsliste.extra.COUNT";
     public static final String EXTRA_COMMENT = "com.example.eikaufsliste.extra.COMMENT";
+    private List<ItemSuggestion> mItemSuggestions;
     //private int mListLength;
 
     @Override
@@ -83,6 +84,16 @@ public class MainActivity extends AppCompatActivity {
             public void onChanged(@Nullable final List<RoomItem> roomItems) {
                 // Update the cached copy of the items in the adapter.
                 mAdapter.setItems(roomItems);
+                //Log.e(LOG_TAG, "rooItems[0]: " + roomItems.get(0));
+                //mListLength = roomItems.size();
+            }
+        });
+
+        mItemViewModel.getAllItemSugs().observe(this, new Observer<List<ItemSuggestion>>() {
+            @Override
+            public void onChanged(@Nullable final List<ItemSuggestion> itemSuggestions) {
+                // Update the cached copy of the items in the adapter.
+                mItemSuggestions = itemSuggestions;
                 //Log.e(LOG_TAG, "rooItems[0]: " + roomItems.get(0));
                 //mListLength = roomItems.size();
             }
@@ -150,6 +161,10 @@ public class MainActivity extends AppCompatActivity {
                     RoomItem newItem = new RoomItem(mAdapter.getItemCount(), name, count, comment, false);
 
                     //mFoodList.addFirst(newItem);
+                    // insert to item suggestions
+                    int len = mItemSuggestions.size();
+                    ItemSuggestion itemSuggestion = new ItemSuggestion(len, newItem.getName(), newItem.getCount(), newItem.getComment(), newItem.getBought());
+                    mItemViewModel.insertSug(itemSuggestion);
                     mItemViewModel.insert(newItem);
                     //mAdapter.notifyDataSetChanged();
                 }

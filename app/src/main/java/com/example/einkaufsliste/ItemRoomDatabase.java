@@ -11,7 +11,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
-@Database(entities = {RoomItem.class}, version = 1, exportSchema = false)
+@Database(entities = {RoomItem.class, ItemSuggestion.class}, version = 2, exportSchema = false)
 public abstract class ItemRoomDatabase extends RoomDatabase {
     private static ItemRoomDatabase INSTANCE;
     private static final String TAG = "ItemRoomDatabase";
@@ -72,6 +72,17 @@ public abstract class ItemRoomDatabase extends RoomDatabase {
             mDao.insert(item2);
             mDao.insert(item3);
             mDao.insert(item4);
+
+            mDao.deleteAllSugs();
+            ItemSuggestion itemSug1 = new ItemSuggestion(3, "Milch", 1, "1.5%", false);
+            ItemSuggestion itemSug2 = new ItemSuggestion(2, "Brot", 2, "Vollkorn", false);
+            ItemSuggestion itemSug3 = new ItemSuggestion(1, "Wasser", 6, "Still", false);
+            ItemSuggestion itemSug4 = new ItemSuggestion(0, "Milch", 2, "3.5%", true);
+            //Log.e(TAG, "in PopulateAsyncDB: " + item1.toString());
+            mDao.insertSug(itemSug1);
+            mDao.insertSug(itemSug2);
+            mDao.insertSug(itemSug3);
+            mDao.insertSug(itemSug4);
 
             return null;
         }

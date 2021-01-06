@@ -26,4 +26,20 @@ public interface ItemDAO {
 
     @Query("SELECT * from item_table ORDER BY id DESC")
     LiveData<List<RoomItem>> getAllItems();
+
+
+    @Insert
+    void insertSug(ItemSuggestion itemSuggestion);
+
+    @Query("DELETE FROM item_suggestion_table")
+    void deleteAllSugs();
+
+    @Delete
+    void deleteSug(ItemSuggestion itemSuggestion);
+
+    @Update
+    void updateSug(ItemSuggestion itemSuggestion);
+
+    @Query("SELECT * from item_suggestion_table ORDER BY id DESC")
+    LiveData<List<ItemSuggestion>> getAllItemSugs();
 }

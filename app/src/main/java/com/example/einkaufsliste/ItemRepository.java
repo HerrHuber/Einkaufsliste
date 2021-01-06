@@ -12,11 +12,13 @@ public class ItemRepository {
 
     private ItemDAO mItemDao;
     private LiveData<List<RoomItem>> mAllItems;
+    private LiveData<List<ItemSuggestion>> mAllItemSugs;
 
     ItemRepository(Application application) {
         ItemRoomDatabase db = ItemRoomDatabase.getDatabase(application);
         mItemDao = db.itemDao();
         mAllItems = mItemDao.getAllItems();
+        mAllItemSugs = mItemDao.getAllItemSugs();
     }
 
     LiveData<List<RoomItem>> getAllItems() {
@@ -76,6 +78,68 @@ public class ItemRepository {
         @Override
         protected Void doInBackground(final RoomItem... params) {
             mAsyncTaskDao.update(params[0]);
+            return null;
+        }
+    }
+
+
+    LiveData<List<ItemSuggestion>> getmAllItemSugs() {
+        return mAllItemSugs;
+    }
+
+    public void insertSug(ItemSuggestion itemSuggestion) {
+        new insertSugAsyncTask(mItemDao).execute(itemSuggestion);
+    }
+
+    public void deleteSug(ItemSuggestion itemSuggestion) {
+        new deleteSugAsyncTask(mItemDao).execute(itemSuggestion);
+    }
+
+    public void updateSug(ItemSuggestion itemSuggestion) {
+        new updateSugAsyncTask(mItemDao).execute(itemSuggestion);
+    }
+
+    private static class insertSugAsyncTask extends AsyncTask<ItemSuggestion, Void, Void> {
+
+        private ItemDAO mAsyncTaskDao;
+
+        insertSugAsyncTask(ItemDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final ItemSuggestion... params) {
+            mAsyncTaskDao.insertSug(params[0]);
+            return null;
+        }
+    }
+
+    private static class deleteSugAsyncTask extends AsyncTask<ItemSuggestion, Void, Void> {
+
+        private ItemDAO mAsyncTaskDao;
+
+        deleteSugAsyncTask(ItemDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final ItemSuggestion... params) {
+            mAsyncTaskDao.deleteSug(params[0]);
+            return null;
+        }
+    }
+
+    private static class updateSugAsyncTask extends AsyncTask<ItemSuggestion, Void, Void> {
+
+        private ItemDAO mAsyncTaskDao;
+
+        updateSugAsyncTask(ItemDAO dao) {
+            mAsyncTaskDao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(final ItemSuggestion... params) {
+            mAsyncTaskDao.updateSug(params[0]);
             return null;
         }
     }
