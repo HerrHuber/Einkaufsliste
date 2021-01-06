@@ -15,4 +15,5 @@
     <string name="textvewcomment">Kommentar</string>
     <string name="edittextnumber">1</string>
     <string name="edittexttextpersonname2">1.5%</string>
+    <string name="button_delete">Delete</string>
 </resources>

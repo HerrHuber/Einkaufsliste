@@ -133,60 +133,71 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == FoodItem_REQUEST) {
             // Test to make sure the intent reply result was good.
             if(resultCode == RESULT_OK) {
-                String name = data.getStringExtra(CreateActivity.EXTRA_NAME);
-                String temp = data.getStringExtra(CreateActivity.EXTRA_COUNT);
-                int count = 1;
-                if (!"".equals(temp)) {
-                    count = Integer.parseInt(temp);
+                String delete = data.getStringExtra(CreateActivity.EXTRA_DELETE);
+                // Test if delete button is pressed while creating a new item
+                if(!"".equals(delete) && !(delete == null)) {
+                    // Do nothing
+                } else {
+                    String name = data.getStringExtra(CreateActivity.EXTRA_NAME);
+                    String temp = data.getStringExtra(CreateActivity.EXTRA_COUNT);
+                    int count = 1;
+                    if (!"".equals(temp)) {
+                        count = Integer.parseInt(temp);
+                    }
+                    String comment = data.getStringExtra(CreateActivity.EXTRA_COMMENT);
+
+                    //FoodItem newItem = new FoodItem(name, count, comment);
+                    RoomItem newItem = new RoomItem(mAdapter.getItemCount(), name, count, comment, false);
+
+                    //mFoodList.addFirst(newItem);
+                    mItemViewModel.insert(newItem);
+                    //mAdapter.notifyDataSetChanged();
                 }
-                String comment = data.getStringExtra(CreateActivity.EXTRA_COMMENT);
-
-                //FoodItem newItem = new FoodItem(name, count, comment);
-                RoomItem newItem = new RoomItem(mAdapter.getItemCount(), name, count, comment, false);
-
-                //mFoodList.addFirst(newItem);
-                mItemViewModel.insert(newItem);
-                //mAdapter.notifyDataSetChanged();
             }
         } else if(requestCode == EditItem_REQUEST) {
             if(resultCode == RESULT_OK) {
-                String name = data.getStringExtra(CreateActivity.EXTRA_NAME);
-                String temp = data.getStringExtra(CreateActivity.EXTRA_COUNT);
-                int count = 1;
-                if(!"".equals(temp)) {
-                    count = Integer.parseInt(temp);
-                }
-                String comment = data.getStringExtra(CreateActivity.EXTRA_COMMENT);
-                String pos = data.getStringExtra(CreateActivity.EXTRA_POSITION);
-                int position = -1;
-                if(!"".equals(pos) && !(pos == null)) {
-                    position = Integer.parseInt(pos);
-                    RoomItem editItem = mAdapter.getItem(position);
-                    boolean bought = editItem.getBought();
-
-                    // because order of list inverse of order of layout
-                    int length = mAdapter.getItemCount();
-                    position = length - 1 - position;
-
-                    RoomItem newItem = new RoomItem(position, name, count, comment, bought);
-                    mItemViewModel.update(newItem);
-                }
-
-                /*
-                if(pos == null) {
-                    Log.e(LOG_TAG, "null");
+                String delete = data.getStringExtra(CreateActivity.EXTRA_DELETE);
+                if(!"".equals(delete) && !(delete == null)) {
+                    String pos = data.getStringExtra(CreateActivity.EXTRA_POSITION);
+                    int position = -1;
+                    if(!"".equals(pos) && !(pos == null)) {
+                        position = Integer.parseInt(pos);
+                        RoomItem deleteItem = mAdapter.getItem(position);
+                        mItemViewModel.delete(deleteItem);
+                    }
                 } else {
-                    Log.e(LOG_TAG, pos);
-                }
-                 */
+                    String name = data.getStringExtra(CreateActivity.EXTRA_NAME);
+                    String temp = data.getStringExtra(CreateActivity.EXTRA_COUNT);
+                    int count = 1;
+                    if(!"".equals(temp)) {
+                        count = Integer.parseInt(temp);
+                    }
+                    String comment = data.getStringExtra(CreateActivity.EXTRA_COMMENT);
+                    String pos = data.getStringExtra(CreateActivity.EXTRA_POSITION);
+                    int position = -1;
+                    if(!"".equals(pos) && !(pos == null)) {
+                        position = Integer.parseInt(pos);
+                        RoomItem editItem = mAdapter.getItem(position);
+                        boolean bought = editItem.getBought();
 
+                        // because order of list inverse of order of layout
+                        int length = mAdapter.getItemCount();
+                        position = length - 1 - position;
+
+                        RoomItem newItem = new RoomItem(position, name, count, comment, bought);
+                        mItemViewModel.update(newItem);
+                    }
+
+                    /*
+                    if(pos == null) {
+                        Log.e(LOG_TAG, "null");
+                    } else {
+                        Log.e(LOG_TAG, pos);
+                    }
+                     */
+                }
                 mAdapter.notifyDataSetChanged();
             }
         }
     }
-
-    public void editFood(View view) {
-        Log.e(LOG_TAG, "editFood");
-    }
-
 }
