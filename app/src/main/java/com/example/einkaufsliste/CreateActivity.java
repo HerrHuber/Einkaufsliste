@@ -184,7 +184,7 @@ public class CreateActivity extends AppCompatActivity {
                 LinkedList<ItemSuggestion> res = new LinkedList<>();
                 for (int i = 0; i < mItemSuggestions.size(); i++) {
                     String current = mItemSuggestions.get(i).getName();
-                    if(current.contains(newText)) {
+                    if(current.toLowerCase().contains(newText.toLowerCase())) {
                         res.add(mItemSuggestions.get(i));
                     }
                     if(res.size() > 2) {
