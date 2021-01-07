@@ -30,7 +30,7 @@ public class FoodListAdapter extends
     public static final String EXTRA_COUNT = "com.example.eikaufsliste.extra.COUNT";
     public static final String EXTRA_COMMENT = "com.example.eikaufsliste.extra.COMMENT";
     public static final String EXTRA_POSITION = "com.example.eikaufsliste.extra.POSITION";
-    private List<RoomItem> mItems;
+    public List<RoomItem> mItems;
 
     public FoodListAdapter(Context context, LinkedList<FoodItem> foodList) {
         mInflater = LayoutInflater.from(context);

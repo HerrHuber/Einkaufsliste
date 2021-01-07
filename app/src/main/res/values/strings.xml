@@ -16,4 +16,7 @@
     <string name="edittextnumber">1</string>
     <string name="edittexttextpersonname2">1.5%</string>
     <string name="button_delete">Delete</string>
+    <string name="search_label">Name</string>
+    <string name="search_hint">Name</string>
+    <string name="title_activity_search">SearchActivity</string>
 </resources>

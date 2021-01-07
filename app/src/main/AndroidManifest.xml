@@ -9,13 +9,35 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Einkaufsliste">
-        <activity android:name=".CreateActivity"
-            android:label = "@string/craeteactivity_label"
+
+        <provider android:name=".MySuggestionProvider"
+            android:authorities="com.example.MySuggestionProvider" />
+        <!--
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search"
+            android:theme="@style/Theme.Einkaufsliste.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+        -->
+        <activity
+            android:name=".CreateActivity"
+            android:label="@string/craeteactivity_label"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=
-                    "com.example.einkaufsliste.MainActivity" />
+                android:value="com.example.einkaufsliste.MainActivity" />
+            <!--
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data android:name="android.app.searchable"
+                android:resource="@xml/searchable"/>
+                -->
         </activity>
         <activity
             android:name=".MainActivity"

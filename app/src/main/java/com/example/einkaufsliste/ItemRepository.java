@@ -13,12 +13,14 @@ public class ItemRepository {
     private ItemDAO mItemDao;
     private LiveData<List<RoomItem>> mAllItems;
     private LiveData<List<ItemSuggestion>> mAllItemSugs;
+    private LiveData<List<ItemSuggestion>> mSearch;
 
     ItemRepository(Application application) {
         ItemRoomDatabase db = ItemRoomDatabase.getDatabase(application);
         mItemDao = db.itemDao();
         mAllItems = mItemDao.getAllItems();
         mAllItemSugs = mItemDao.getAllItemSugs();
+        mSearch = null;
     }
 
     LiveData<List<RoomItem>> getAllItems() {
@@ -35,6 +37,14 @@ public class ItemRepository {
 
     public void update(RoomItem roomItem) {
         new updateAsyncTask(mItemDao).execute(roomItem);
+    }
+
+    LiveData<List<ItemSuggestion>> getSearch1(String search) {
+        return mItemDao.getSearchSugs1(search);
+    }
+
+    List<ItemSuggestion> getSearch(String search) {
+        return mItemDao.getSearchSugs(search);
     }
 
     private static class insertAsyncTask extends AsyncTask<RoomItem, Void, Void> {

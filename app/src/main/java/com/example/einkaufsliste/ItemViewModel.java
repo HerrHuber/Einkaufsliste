@@ -13,13 +13,16 @@ public class ItemViewModel extends AndroidViewModel {
     private static final String LOG_TAG4 = ItemViewModel.class.getSimpleName();
     private ItemRepository mRepository;
     private LiveData<List<RoomItem>> mAllItems;
+    private List<ItemSuggestion> mCurrentSugs;
     private LiveData<List<ItemSuggestion>> mAllItemSugs;
+    private LiveData<List<ItemSuggestion>> mSearch;
 
     public ItemViewModel(Application application) {
         super(application);
         mRepository = new ItemRepository(application);
         mAllItems = mRepository.getAllItems();
         mAllItemSugs = mRepository.getmAllItemSugs();
+        mSearch = null;
     }
 
     LiveData<List<RoomItem>> getAllItems() {
@@ -47,6 +50,10 @@ public class ItemViewModel extends AndroidViewModel {
         return mAllItemSugs;
     }
 
+    public List<ItemSuggestion> getItemSugs() {
+        return mCurrentSugs;
+    }
+
     public void insertSug(ItemSuggestion itemSuggestion) {
         mRepository.insertSug(itemSuggestion);
     }
@@ -57,5 +64,13 @@ public class ItemViewModel extends AndroidViewModel {
 
     public void updateSug(ItemSuggestion itemSuggestion) {
         mRepository.updateSug(itemSuggestion);
+    }
+
+    LiveData<List<ItemSuggestion>> getSearch1(String search) {
+        return mRepository.getSearch1(search);
+    }
+
+    List<ItemSuggestion> getSearch(String search) {
+        return mRepository.getSearch(search);
     }
 }

@@ -42,4 +42,10 @@ public interface ItemDAO {
 
     @Query("SELECT * from item_suggestion_table ORDER BY id DESC")
     LiveData<List<ItemSuggestion>> getAllItemSugs();
+
+    @Query("SELECT * from item_suggestion_table where name like :search")
+    LiveData<List<ItemSuggestion>> getSearchSugs1(String search);
+
+    @Query("SELECT * from item_suggestion_table where name like :search")
+    List<ItemSuggestion> getSearchSugs(String search);
 }

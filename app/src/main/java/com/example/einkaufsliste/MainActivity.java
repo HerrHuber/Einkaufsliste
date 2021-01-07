@@ -112,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -124,9 +124,11 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        /*
         if (id == R.id.action_settings) {
             return true;
         }
+         */
 
         return super.onOptionsItemSelected(item);
     }
@@ -159,10 +161,13 @@ public class MainActivity extends AppCompatActivity {
 
                     //FoodItem newItem = new FoodItem(name, count, comment);
                     RoomItem newItem = new RoomItem(mAdapter.getItemCount(), name, count, comment, false);
+                    Log.e(LOG_TAG, "in Create item: " + mAdapter.getItemCount());
+                    Log.e(LOG_TAG, "Items: " + mAdapter.mItems);
 
                     //mFoodList.addFirst(newItem);
                     // insert to item suggestions
                     int len = mItemSuggestions.size();
+
                     ItemSuggestion itemSuggestion = new ItemSuggestion(len, newItem.getName(), newItem.getCount(), newItem.getComment(), newItem.getBought());
                     mItemViewModel.insertSug(itemSuggestion);
                     mItemViewModel.insert(newItem);
@@ -177,7 +182,28 @@ public class MainActivity extends AppCompatActivity {
                     int position = -1;
                     if(!"".equals(pos) && !(pos == null)) {
                         position = Integer.parseInt(pos);
-                        RoomItem deleteItem = mAdapter.getItem(position);
+
+                        // put item to delete at the end of the list
+                        // than delete last item
+                        // because (unique) item id corresponds to list index
+                        int length = mAdapter.getItemCount();
+                        RoomItem item = mAdapter.mItems.get(position);
+                        LinkedList<RoomItem> list = new LinkedList<>();
+                        for (RoomItem t : mAdapter.mItems) {
+                            list.add(t);
+                        }
+                        list.remove(item);
+                        RoomItem newItem = new RoomItem(item.getId(), item.getName(), item.getCount(), item.getComment(), item.getBought());
+                        //mItemViewModel.update(newItem);
+                        list.addFirst(newItem);
+                        for (int i = 0; i < length; i++) {
+                            // because order of list inverse of order of layout
+                            RoomItem current = list.get(length - 1 - i);
+                            RoomItem n = new RoomItem(i, current.getName(), current.getCount(), current.getComment(), current.getBought());
+                            mItemViewModel.update(n);
+                        }
+                        RoomItem deleteItem = new RoomItem(length-1, item.getName(), item.getCount(), item.getComment(), item.getBought());
+                        //RoomItem deleteItem = mAdapter.getItem(position);
                         mItemViewModel.delete(deleteItem);
                     }
                 } else {
@@ -192,6 +218,11 @@ public class MainActivity extends AppCompatActivity {
                     int position = -1;
                     if(!"".equals(pos) && !(pos == null)) {
                         position = Integer.parseInt(pos);
+
+
+
+
+
                         RoomItem editItem = mAdapter.getItem(position);
                         boolean bought = editItem.getBought();
 
