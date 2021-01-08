@@ -49,16 +49,12 @@ public class CreateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_create);
 
         mItemViewModel = new ViewModelProvider(this).get(ItemViewModel.class);
-        //mItemSuggestions = (List<ItemSuggestion>) mItemViewModel.getAllItemSugs();
 
         mItemViewModel.getAllItemSugs().observe(this, new Observer<List<ItemSuggestion>>() {
             @Override
             public void onChanged(@Nullable final List<ItemSuggestion> itemSuggestions) {
-                // Update the cached copy of the items in the adapter.
-                //mSugAdapter.setItems(itemSuggestions);
+                // Update the cached copy of the items in the adapter
                 mItemSuggestions = itemSuggestions;
-                Log.e(LOG_TAG2, "itemSuggestions[0]: " + itemSuggestions.get(0));
-                //mListLength = roomItems.size();
             }
         });
 
@@ -67,53 +63,22 @@ public class CreateActivity extends AppCompatActivity {
         FoodItem foodItem = new FoodItem("Name", 2, "test");
         mSugList.addFirst(foodItem);
 
-        // Get a handle to the RecyclerView.
+        // Get a handle to the RecyclerView
         mSugRecyclerView = findViewById(R.id.recyclerView2);
-        // Create an adapter and supply the data to be displayed.
+        // Create an adapter and supply the data to be displayed
         mSugAdapter = new SugListAdapter(this, mSugList);
-        // Connect the adapter with the RecyclerView.
+        // Connect the adapter with the RecyclerView
         mSugRecyclerView.setAdapter(mSugAdapter);
-        // Give the RecyclerView a default layout manager.
+        // Give the RecyclerView a default layout manager
         mSugRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Get the SearchView and set the searchable configuration
-        //SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        //SearchView mSearchView = (SearchView) findViewById(R.id.searchView2);
-        // Assumes current activity is the searchable activity
-        //mSearchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        //mSearchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
-
-        // Get the intent, verify the action and get the query
         Intent intent = getIntent();
         doMySearch(intent);
-
-        /*
-        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Log.i(LOG_TAG2, "onQueryTextSubmit: Query was submitted");
-                // -------------------------------------------------------
-                SearchRecentSuggestions suggestions = new SearchRecentSuggestions(MainActivity.this,
-                       MySuggestionProvider.AUTHORITY,
-                       MySuggestionProvider.MODE);
-                suggestions.saveRecentQuery(query, null);
-                // -------------------------------------------------------
-
-                displaySearchResults(query);
-
-                return true;
-            }
-        };
-
-         */
-
-        //mSearchView = (SearchView) findViewById(R.id.searchView2):
 
         mName = findViewById(R.id.editTextTextPersonName);
         mCount = findViewById(R.id.editTextNumber);
         mComment = findViewById(R.id.editTextTextPersonName2);
 
-        //Intent intent = getIntent();
         String name = intent.getStringExtra(MainActivity.EXTRA_NAME);
         String count = intent.getStringExtra(MainActivity.EXTRA_COUNT);
         String comment = intent.getStringExtra(MainActivity.EXTRA_COMMENT);
@@ -141,12 +106,7 @@ public class CreateActivity extends AppCompatActivity {
                     MySuggestionProvider.AUTHORITY, MySuggestionProvider.MODE);
             suggestions.saveRecentQuery(query, null);
 
-            //displaySearchResults(query);
             Log.e(LOG_TAG2, "Query: " + query);
-            //FoodItem foodItem = new FoodItem(query);
-            //mSugAdapter.addSug(foodItem);
-            //mSugList.addLast((foodItem));
-            //mSugAdapter.notifyDataSetChanged();
             Log.e(LOG_TAG2, "mItemSuggestions: " + mItemSuggestions);
             mSugAdapter.setItems(mItemSuggestions);
             mSugAdapter.notifyDataSetChanged();
@@ -200,7 +160,7 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     public void createFoodItem(View view) {
-        // Get the reply message from the edit text.
+        // Get the reply message from the edit text
         String name = mName.getText().toString();
         String count = mCount.getText().toString();
         String comment = mComment.getText().toString();
@@ -211,7 +171,7 @@ public class CreateActivity extends AppCompatActivity {
         Log.e(LOG_TAG2, "pos: " + position);
 
         // Create a new intent for the reply, add the reply message to it
-        // as an extra, set the intent result, and close the activity.
+        // as an extra, set the intent result, and close the activity
         Intent replyIntent = new Intent();
         replyIntent.putExtra(EXTRA_NAME, name);
         replyIntent.putExtra(EXTRA_COUNT, count);
@@ -222,14 +182,14 @@ public class CreateActivity extends AppCompatActivity {
     }
 
     public void deleteFoodItem(View view) {
-        // Get the reply message from the edit text.
+        // Get the reply message from the edit text
         String name = mName.getText().toString();
         String count = mCount.getText().toString();
         String comment = mComment.getText().toString();
         String position = mPosition;
 
         // Create a new intent for the reply, add the reply message to it
-        // as an extra, set the intent result, and close the activity.
+        // as an extra, set the intent result, and close the activity
         Intent replyIntent = new Intent();
         replyIntent.putExtra(EXTRA_NAME, name);
         replyIntent.putExtra(EXTRA_COUNT, count);

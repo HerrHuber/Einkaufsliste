@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_COUNT = "com.example.eikaufsliste.extra.COUNT";
     public static final String EXTRA_COMMENT = "com.example.eikaufsliste.extra.COMMENT";
     private List<ItemSuggestion> mItemSuggestions;
-    //private int mListLength;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,90 +44,46 @@ public class MainActivity extends AppCompatActivity {
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setImageResource(R.drawable.ic_add_for_fab);
-        /*
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                //        .setAction("Action", null).show();
 
-
-                // startActivityForResult
-
-                int wordListSize = mFoodList.size();
-                // Add a new word to the wordList.
-                mFoodList.addLast("+ Word " + wordListSize);
-                // Notify the adapter, that the data has changed.
-                mRecyclerView.getAdapter().notifyItemInserted(wordListSize);
-                // Scroll to the bottom.
-                mRecyclerView.smoothScrollToPosition(wordListSize);
-                Intent intent = new Intent(this, CreateActivity.class);
-                startActivity(intent);
-            }
-        }); */
-
-        // Get a handle to the RecyclerView.
+        // Get a handle to the RecyclerView
         mRecyclerView = findViewById(R.id.recyclerview);
-        // Create an adapter and supply the data to be displayed.
+        // Create an adapter and supply the data to be displayed
         mAdapter = new FoodListAdapter(this, mFoodList);
-        // Connect the adapter with the RecyclerView.
+        // Connect the adapter with the RecyclerView
         mRecyclerView.setAdapter(mAdapter);
-        // Give the RecyclerView a default layout manager.
+        // Give the RecyclerView a default layout manager
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        //mItemViewModel = ViewModelProviders.of(this).get(ItemViewModel.class);
         mItemViewModel = new ViewModelProvider(this).get(ItemViewModel.class);
 
         mItemViewModel.getAllItems().observe(this, new Observer<List<RoomItem>>() {
             @Override
             public void onChanged(@Nullable final List<RoomItem> roomItems) {
-                // Update the cached copy of the items in the adapter.
+                // Update the cached copy of the items in the adapter
                 mAdapter.setItems(roomItems);
-                //Log.e(LOG_TAG, "rooItems[0]: " + roomItems.get(0));
-                //mListLength = roomItems.size();
             }
         });
 
         mItemViewModel.getAllItemSugs().observe(this, new Observer<List<ItemSuggestion>>() {
             @Override
             public void onChanged(@Nullable final List<ItemSuggestion> itemSuggestions) {
-                // Update the cached copy of the items in the adapter.
+                // Update the cached copy of the items in the adapter
                 mItemSuggestions = itemSuggestions;
-                //Log.e(LOG_TAG, "rooItems[0]: " + roomItems.get(0));
-                //mListLength = roomItems.size();
             }
         });
-
-        /*
-        FoodItem elem1 = new FoodItem("Milch", 1, "1.5%");
-        FoodItem elem2 = new FoodItem("Bort", 1, "Vollkorn");
-        FoodItem elem3 = new FoodItem("Milch", 2, "3.5%");
-        mFoodList.addLast(elem1);
-        mFoodList.addLast(elem2);
-        mFoodList.addLast(elem3);
-         */
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
+        // Handle action bar item clicks. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        /*
-        if (id == R.id.action_settings) {
-            return true;
-        }
-         */
 
         return super.onOptionsItemSelected(item);
     }
@@ -142,15 +97,15 @@ public class MainActivity extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Test for the right intent reply.
+        // Create new item
         if(requestCode == FoodItem_REQUEST) {
-            // Test to make sure the intent reply result was good.
             if(resultCode == RESULT_OK) {
                 String delete = data.getStringExtra(CreateActivity.EXTRA_DELETE);
                 // Test if delete button is pressed while creating a new item
                 if(!"".equals(delete) && !(delete == null)) {
-                    // Do nothing
+                    // If delete is pressed do nothing, jsut return to MainActivity
                 } else {
+                    // Else create new item and return to MainActivity
                     String name = data.getStringExtra(CreateActivity.EXTRA_NAME);
                     String temp = data.getStringExtra(CreateActivity.EXTRA_COUNT);
                     int count = 1;
@@ -159,21 +114,18 @@ public class MainActivity extends AppCompatActivity {
                     }
                     String comment = data.getStringExtra(CreateActivity.EXTRA_COMMENT);
 
-                    //FoodItem newItem = new FoodItem(name, count, comment);
                     RoomItem newItem = new RoomItem(mAdapter.getItemCount(), name, count, comment, false);
                     Log.e(LOG_TAG, "in Create item: " + mAdapter.getItemCount());
                     Log.e(LOG_TAG, "Items: " + mAdapter.mItems);
 
-                    //mFoodList.addFirst(newItem);
-                    // insert to item suggestions
+                    // Before creating new item insert it to item suggestions
                     int len = mItemSuggestions.size();
-
                     ItemSuggestion itemSuggestion = new ItemSuggestion(len, newItem.getName(), newItem.getCount(), newItem.getComment(), newItem.getBought());
                     mItemViewModel.insertSug(itemSuggestion);
                     mItemViewModel.insert(newItem);
-                    //mAdapter.notifyDataSetChanged();
                 }
             }
+            // Edit or delete item
         } else if(requestCode == EditItem_REQUEST) {
             if(resultCode == RESULT_OK) {
                 String delete = data.getStringExtra(CreateActivity.EXTRA_DELETE);
@@ -183,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                     if(!"".equals(pos) && !(pos == null)) {
                         position = Integer.parseInt(pos);
 
-                        // put item to delete at the end of the list
+                        // Put item to delete at the end of the list
                         // than delete last item
                         // because (unique) item id corresponds to list index
                         int length = mAdapter.getItemCount();
@@ -194,16 +146,14 @@ public class MainActivity extends AppCompatActivity {
                         }
                         list.remove(item);
                         RoomItem newItem = new RoomItem(item.getId(), item.getName(), item.getCount(), item.getComment(), item.getBought());
-                        //mItemViewModel.update(newItem);
                         list.addFirst(newItem);
                         for (int i = 0; i < length; i++) {
-                            // because order of list inverse of order of layout
+                            // Because order of list inverse of order of layout
                             RoomItem current = list.get(length - 1 - i);
                             RoomItem n = new RoomItem(i, current.getName(), current.getCount(), current.getComment(), current.getBought());
                             mItemViewModel.update(n);
                         }
                         RoomItem deleteItem = new RoomItem(length-1, item.getName(), item.getCount(), item.getComment(), item.getBought());
-                        //RoomItem deleteItem = mAdapter.getItem(position);
                         mItemViewModel.delete(deleteItem);
                     }
                 } else {
@@ -219,10 +169,6 @@ public class MainActivity extends AppCompatActivity {
                     if(!"".equals(pos) && !(pos == null)) {
                         position = Integer.parseInt(pos);
 
-
-
-
-
                         RoomItem editItem = mAdapter.getItem(position);
                         boolean bought = editItem.getBought();
 
@@ -233,14 +179,6 @@ public class MainActivity extends AppCompatActivity {
                         RoomItem newItem = new RoomItem(position, name, count, comment, bought);
                         mItemViewModel.update(newItem);
                     }
-
-                    /*
-                    if(pos == null) {
-                        Log.e(LOG_TAG, "null");
-                    } else {
-                        Log.e(LOG_TAG, pos);
-                    }
-                     */
                 }
                 mAdapter.notifyDataSetChanged();
             }

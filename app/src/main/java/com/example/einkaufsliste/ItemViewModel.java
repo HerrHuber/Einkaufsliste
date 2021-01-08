@@ -30,11 +30,7 @@ public class ItemViewModel extends AndroidViewModel {
     }
 
     public void insert(RoomItem roomItem) {
-        //int len = mAllItemSugs.getValue().size();
-        //ItemSuggestion itemSuggestion = new ItemSuggestion(len, roomItem.getName(), roomItem.getCount(), roomItem.getComment(), roomItem.getBought());
-        //insertSug(itemSuggestion);
         mRepository.insert(roomItem);
-        //Log.e(LOG_TAG4, "mAllItemSugs: " + mAllItemSugs);
     }
 
     public void delete(RoomItem roomItem) {

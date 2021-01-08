@@ -59,7 +59,8 @@ public abstract class ItemRoomDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(final Void... params) {
-            // Start the app with a clean database every time.
+            // Just for testing purposes
+            // Start the app with a clean database every time
             // Not needed if you only populate the database
             // when it is first created
             /*
@@ -84,7 +85,6 @@ public abstract class ItemRoomDatabase extends RoomDatabase {
             mDao.insertSug(itemSug2);
             mDao.insertSug(itemSug3);
             mDao.insertSug(itemSug4);
-
              */
 
             return null;

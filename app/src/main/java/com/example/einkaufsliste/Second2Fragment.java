@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 public class Second2Fragment extends Fragment {
+    /*
 
     @Override
     public View onCreateView(
@@ -31,4 +32,6 @@ public class Second2Fragment extends Fragment {
             }
         });
     }
+
+     */
 }

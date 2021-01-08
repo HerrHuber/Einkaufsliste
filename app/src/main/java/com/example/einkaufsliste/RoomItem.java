@@ -59,17 +59,6 @@ public class RoomItem {
         return this.bought;
     }
 
-    /*
-    @Override
-    public String toString() {
-        return "Item" + id + ":" +
-                "\nname: " + name +
-                ", count: " + count +
-                ", \ncomment: " + comment +
-                ", bought: " + bought;
-    }
-    */
-
     @Override
     public String toString() {
         return this.count + "x " + this.name + " " + this.comment;

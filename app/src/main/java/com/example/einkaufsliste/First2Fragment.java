@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 public class First2Fragment extends Fragment {
-
+/*
     @Override
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -31,4 +31,6 @@ public class First2Fragment extends Fragment {
             }
         });
     }
+
+ */
 }

@@ -49,11 +49,6 @@ public class FoodListAdapter extends
     @Override
     public void onBindViewHolder(@NonNull FoodListAdapter.FoodViewHolder holder, int position) {
         if(mItems != null) {
-            /*
-            FoodItem mCurrent = mFoodList.get(position);
-            holder.foodItemView.setText(mCurrent.toString());
-            holder.boughtCheckBox.setChecked(mCurrent.getbought());
-             */
             RoomItem current = mItems.get(position);
             holder.foodItemView.setText(current.toString());
             holder.boughtCheckBox.setChecked(current.getBought());
@@ -88,7 +83,6 @@ public class FoodListAdapter extends
     }
 
     class FoodViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-    //class FoodViewHolder extends RecyclerView.ViewHolder {
         public final TextView foodItemView;
         public final CheckBox boughtCheckBox;
         final FoodListAdapter mAdapter;
@@ -105,15 +99,7 @@ public class FoodListAdapter extends
                 @Override
                 public boolean onLongClick(View view) {
                     int position = getLayoutPosition();
-
-                    //FoodItem element = mFoodList.get(mPosition);
-                    //Log.e(LOG_TAG3, "position1: " + position);
                     RoomItem item = mItems.get(position);
-                    /*
-                    EditText name = view.findViewById(R.id.editTextTextPersonName);
-                    EditText count = view.findViewById(R.id.editTextNumber);
-                    EditText comment = view.findViewById(R.id.editTextTextPersonName2);
-                     */
                     Intent intent = new Intent(mContext, CreateActivity.class);
                     intent.putExtra(EXTRA_NAME, item.getName());
                     intent.putExtra(EXTRA_COUNT, "" + item.getCount());
@@ -146,11 +132,6 @@ public class FoodListAdapter extends
                     mItemViewModel.update(n);
                 }
             } else {
-                //element.setBought(true);
-                //mFoodList.remove(element);
-                //mFoodList.addLast(element);
-
-
                 list.remove(item);
                 RoomItem newItem = new RoomItem(item.getId(), item.getName(), item.getCount(), item.getComment(), true);
                 mItemViewModel.update(newItem);

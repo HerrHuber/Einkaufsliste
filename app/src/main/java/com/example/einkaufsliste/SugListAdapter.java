@@ -29,7 +29,6 @@ public class SugListAdapter extends
     public SugListAdapter(Context context, LinkedList<FoodItem> foodItems) {
         mInflater = LayoutInflater.from(context);
         this.mSugList = foodItems;
-        //this.mItemSuggestions = itemSuggestions;
         mContext = context;
     }
 
@@ -46,16 +45,13 @@ public class SugListAdapter extends
         if(mItemSuggestions != null) {
             ItemSuggestion current = mItemSuggestions.get(position);
             holder.sugItemView.setText(current.toString());
-            //holder.boughtCheckBox.setChecked(current.getBought());
         } else {
             holder.sugItemView.setText("No Item");
-            //holder.boughtCheckBox.setChecked(true);
         }
     }
 
     @Override
     public int getItemCount() {
-        //return mItemSuggestions.size();
         int result;
         if (mItemSuggestions != null) {
             result = mItemSuggestions.size();
@@ -70,16 +66,8 @@ public class SugListAdapter extends
         notifyDataSetChanged();
     }
 
-    /*
-    public void addSug(FoodItem foodItem) {
-        this.mSugList.addFirst(foodItem);
-        notifyDataSetChanged();
-    }
-     */
-
     class SugViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public final TextView sugItemView;
-        //public final CheckBox boughtCheckBox;
         final SugListAdapter mAdapter;
 
         public SugViewHolder(View itemView, SugListAdapter adapter) {
@@ -91,16 +79,11 @@ public class SugListAdapter extends
 
         @Override
         public void onClick(View view) {
-            // Get the position of the item that was clicked.
+            // Get the position of the item that was clicked
             int mPosition = getLayoutPosition();
-            // Use that to access the affected item in mWordList.
+            // Use that to access the affected item in mWordList
             ItemSuggestion element = mItemSuggestions.get(mPosition);
             Log.e(LOG_TAG6, "onClick: " + element.getName());
-            //element.setCount(element.getCount() + 1);
-            // Change the word in the mWordList.
-            //mSugList.set(mPosition, element);
-            // Notify the adapter, that the data has changed so it can
-            // update the RecyclerView to display the data.
             EditText name = (EditText) ((Activity) mContext).findViewById(R.id.editTextTextPersonName);
             EditText count = (EditText) ((Activity) mContext).findViewById(R.id.editTextNumber);
             EditText comment = (EditText) ((Activity) mContext).findViewById(R.id.editTextTextPersonName2);
@@ -108,9 +91,6 @@ public class SugListAdapter extends
             name.setText(element.getName());
             count.setText(String.valueOf(element.getCount()));
             comment.setText(element.getComment());
-            //mItemSuggestions.clear();
-            //Intent intent = new Intent(mContext, CreateActivity.class);
-            //intent.putExtra(MainActivity.EXTRA_NAME, element.getName());
             mAdapter.notifyDataSetChanged();
         }
     }

@@ -11,4 +11,5 @@ public class MySuggestionProvider extends SearchRecentSuggestionsProvider {
     public MySuggestionProvider() {
         setupSuggestions(AUTHORITY, MODE);
     }
+
 }

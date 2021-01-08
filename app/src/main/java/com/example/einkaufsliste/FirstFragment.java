@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.LinkedList;
 
 public class FirstFragment extends Fragment {
+    /*
     private final LinkedList<String> mFoodList = new LinkedList<>();
     private RecyclerView mRecyclerView;
     private FoodListAdapter mAdapter;
@@ -51,6 +52,6 @@ public class FirstFragment extends Fragment {
             }
         });
 
-         */
     }
+         */
 }
