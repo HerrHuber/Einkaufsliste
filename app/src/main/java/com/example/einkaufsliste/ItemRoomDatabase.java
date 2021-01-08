@@ -27,7 +27,7 @@ public abstract class ItemRoomDatabase extends RoomDatabase {
                             ItemRoomDatabase.class, "item_database")
                             // Wipes and rebuilds instead of migrating
                             // if no Migration object.
-                            .fallbackToDestructiveMigration()
+                            //.fallbackToDestructiveMigration()
                             .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
@@ -62,6 +62,7 @@ public abstract class ItemRoomDatabase extends RoomDatabase {
             // Start the app with a clean database every time.
             // Not needed if you only populate the database
             // when it is first created
+            /*
             mDao.deleteAll();
             RoomItem item1 = new RoomItem(3, "Milch", 1, "1.5%", false);
             RoomItem item2 = new RoomItem(2, "Brot", 2, "Vollkorn", false);
@@ -83,6 +84,8 @@ public abstract class ItemRoomDatabase extends RoomDatabase {
             mDao.insertSug(itemSug2);
             mDao.insertSug(itemSug3);
             mDao.insertSug(itemSug4);
+
+             */
 
             return null;
         }
