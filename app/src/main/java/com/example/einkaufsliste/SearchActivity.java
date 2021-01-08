@@ -15,6 +15,11 @@ import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 
+
+/**
+ * For future use not relevant for grading
+ * Will be used for separating the search functionality to a different Activity
+ */
 public class SearchActivity extends Activity {
     /*
     private static final String LOG_TAG5 = SearchActivity.class.getSimpleName();

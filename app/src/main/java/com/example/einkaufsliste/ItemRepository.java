@@ -8,6 +8,10 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 
+/**
+ * Abstracted Repository as promoted by the Architecture Guide
+ * https://developer.android.com/topic/libraries/architecture/guide.html
+ */
 public class ItemRepository {
 
     private ItemDAO mItemDao;

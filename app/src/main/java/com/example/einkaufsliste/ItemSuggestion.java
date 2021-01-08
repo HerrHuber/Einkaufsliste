@@ -6,6 +6,18 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 
+/**
+ * A basic class representing an entity that is a row in a five-column database table
+ * This class is used for storing item suggestions
+ * It is very similar to RoomItems but it represents different table in the database
+ *
+ * @ Entity - Annotates the class as an entity and supplies a table name if not class name
+ * @ PrimaryKey - Unique id corresponds to the index/position of an item in the list
+ * @ ColumnInfo - Name of the item, count, comment and mark as bought/not bought
+ *
+ * See the documentation for the full rich set of annotations
+ * https://developer.android.com/topic/libraries/architecture/room.html
+ */
 @Entity(tableName = "item_suggestion_table")
 public class ItemSuggestion {
 

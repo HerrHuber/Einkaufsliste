@@ -9,6 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+/**
+ * For future use not relevant for grading
+ */
 public class First2Fragment extends Fragment {
 /*
     @Override

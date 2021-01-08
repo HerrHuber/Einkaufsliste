@@ -25,6 +25,11 @@ import android.widget.EditText;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/**
+ * Implements creating, editing and deleting items
+ * As well as providing search suggestions of the last X created items
+ */
 public class CreateActivity extends AppCompatActivity {
     private static final String LOG_TAG2 = CreateActivity.class.getSimpleName();
     public static final String EXTRA_NAME = "com.example.eikaufsliste.extra.NAME";

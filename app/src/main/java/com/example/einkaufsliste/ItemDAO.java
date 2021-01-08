@@ -9,6 +9,18 @@ import androidx.room.Update;
 
 import java.util.List;
 
+
+/**
+ * Part of Room, maps a Java method call to an SQL query
+ * Basic CRUD functionality for persistent item storage
+ *
+ * Operates on two DB tables:
+ * - One for the item list (see class RoomItem)
+ * - One for the item suggestion/search list (see class ItemSuggestion)
+ *
+ * See the documentation at
+ * https://developer.android.com/topic/libraries/architecture/room.html#type-converters
+ */
 @Dao
 public interface ItemDAO {
 

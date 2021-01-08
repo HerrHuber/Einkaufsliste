@@ -11,6 +11,9 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 
+/**
+ * This is the backend, the database. This used to be done by the OpenHelper
+ */
 @Database(entities = {RoomItem.class, ItemSuggestion.class}, version = 2, exportSchema = false)
 public abstract class ItemRoomDatabase extends RoomDatabase {
     private static ItemRoomDatabase INSTANCE;

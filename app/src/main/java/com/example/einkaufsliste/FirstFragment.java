@@ -13,6 +13,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.LinkedList;
 
+/**
+ * For future use not relevant for grading
+ */
 public class FirstFragment extends Fragment {
     /*
     private final LinkedList<String> mFoodList = new LinkedList<>();

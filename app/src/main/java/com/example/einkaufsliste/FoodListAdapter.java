@@ -20,6 +20,13 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Implements a simple Adapter for a RecyclerView
+ * Uses an onClick handler for each item in the ViewHolder
+ * Handles the marked as bought behavior
+ * i.e. change item position to last and mark as bought when clicked
+ *      when marked as bought and clicked change list position to fisrt and delete mark
+ */
 public class FoodListAdapter extends
         RecyclerView.Adapter<FoodListAdapter.FoodViewHolder>  {
     private static final String LOG_TAG3 = FoodListAdapter.class.getSimpleName();

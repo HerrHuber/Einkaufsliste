@@ -18,6 +18,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.LinkedList;
 import java.util.List;
 
+
+/**
+ * Implements a simple Adapter for a RecyclerView
+ * For displaying the search suggestions results
+ * Uses an onClick handler for each item in the ViewHolder
+ * Clicking an item takes the suggestion and fills out the create item fields in CreateActivity
+ */
 public class SugListAdapter extends
         RecyclerView.Adapter<SugListAdapter.SugViewHolder> {
     private static final String LOG_TAG6 = MainActivity.class.getSimpleName();

@@ -1,5 +1,11 @@
 package com.example.einkaufsliste;
 
+
+/**
+ * A basic class representing an item
+ * Used only for development and testing purposes
+ *
+ */
 public class FoodItem {
     private String name;
     private int count;

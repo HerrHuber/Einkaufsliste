@@ -9,6 +9,14 @@ import androidx.lifecycle.LiveData;
 import java.util.List;
 
 
+/**
+ * View Model to keep a reference to the item repository and
+ * an up-to-date list of all items
+ *
+ * Uses LiveData to cache what methods return and to make it posible to
+ * - use an observer (instead of polling for changes) and only update the UI when the data actually changes
+ * - separate the Repository from the UI
+ */
 public class ItemViewModel extends AndroidViewModel {
     private static final String LOG_TAG4 = ItemViewModel.class.getSimpleName();
     private ItemRepository mRepository;

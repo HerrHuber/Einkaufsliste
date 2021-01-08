@@ -22,6 +22,14 @@ import android.view.MenuItem;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Einkaufsliste - Grocery list
+ * Implements a basic RecyclerView that displays a list of generated items
+ * - Clicking an item marks it as bought and changes its list position to last
+ *   Clicking an item marked as bought will delete the mark and change its position to first
+ * - Long clicking an item starts CreateActivity to edit or delete the selected item
+ * - Clicking the fab button starts CreateActivity to add a new item to the list
+ */
 public class MainActivity extends AppCompatActivity {
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
     private final LinkedList<FoodItem> mFoodList = new LinkedList<>();
